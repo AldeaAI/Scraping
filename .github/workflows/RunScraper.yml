@@ -1,0 +1,46 @@
+name: RunScraperAppartments
+run-name: ScrapeAppartments
+on: 
+  schedule:
+    #    - cron: '*/10 * * * *' 
+    - cron: '7 7 * * *' 
+  workflow_dispatch:
+jobs:
+  ScrapeAppartments:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+      
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments.py
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A 
+          git commit -m 'updated csv file'
+          git push
+
+
+       
