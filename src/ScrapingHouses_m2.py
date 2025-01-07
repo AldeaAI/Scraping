@@ -178,7 +178,7 @@ if __name__ == "__main__":
     if df is not None:
         # Create filename with date
         extraction_date_str = datetime.now().strftime("%Y-%m-%d")
-        filename = f"data/Apartments/listings_data_m2_{city}_{extraction_date_str}.csv"  # Filename with date
+        filename = f"data/Houses/listings_data_m2_{city}_{extraction_date_str}.csv"  # Filename with date
         df.to_csv(filename, index=False, encoding="utf-8")  # Saves the dataframe to a csv file
         print(f"Data saved to {filename}") #Prints the filename
         logging.info("Property data saved to property_data.csv")
