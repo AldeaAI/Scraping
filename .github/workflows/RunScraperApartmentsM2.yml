@@ -15,7 +15,7 @@ on:
           - ScrapeApartments_m2_la-estrella
 jobs:
   ScrapeApartments_m2_medellin:
-    if:     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_medellin') || github.event_name == 'schedule'
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_medellin') || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
