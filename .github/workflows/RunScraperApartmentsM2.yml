@@ -5,6 +5,14 @@ on:
     #    - cron: '*/10 * * * *' 
     - cron: '7 9 * * *' 
   workflow_dispatch:
+    inputs:
+      job_to_run:
+        description: 'Which job to run?'
+        required: true
+        type: choice
+        options:
+          - ScrapeApartments_m2_medellin
+          - ScrapeApartments_m2_la-estrella
 jobs:
   ScrapeApartments_m2_medellin:
     runs-on: ubuntu-latest
