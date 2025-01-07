@@ -29,7 +29,7 @@ jobs:
         run: |
           ls
           pwd
-          python src/ScrapingApartments_m2.py
+          python src/ScrapingApartments_m2.py medellin
           ls
           pwd
 
