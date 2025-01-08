@@ -2,9 +2,16 @@ name: RunScraperApartments_m2
 run-name: ScrapeApartments_m2
 on: 
   schedule:
-    #    - cron: '*/10 * * * *' 
     - cron: '7 9 * * *' 
     - cron: '17 9 * * *'
+    - cron: '27 9 * * *'
+    - cron: '37 9 * * *'
+    - cron: '47 9 * * *'
+    - cron: '57 9 * * *'
+    - cron: '7 10 * * *'
+    - cron: '17 10 * * *'
+    - cron: '27 10 * * *'
+    - cron: '37 10 * * *'
   workflow_dispatch:
     inputs:
       job_to_run:
@@ -14,9 +21,17 @@ on:
         options:
           - ScrapeApartments_m2_medellin
           - ScrapeApartments_m2_la-estrella
+          - ScrapeApartments_m2_caldas
+          - ScrapeApartments_m2_sabaneta     
+          - ScrapeApartments_m2_envigado           
+          - ScrapeApartments_m2_itagui   
+          - ScrapeApartments_m2_bello
+          - ScrapeApartments_m2_copacabana      
+          - ScrapeApartments_m2_girardota 
+          - ScrapeApartments_m2_barbosa  
 jobs:
   ScrapeApartments_m2_medellin:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_medellin') || github.event_name == 'schedule'
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '7 9 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -53,7 +68,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_la-estrella:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_la-estrella') || github.event_name == 'schedule'
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_la-estrella') || (github.event_name == 'schedule' && github.event.schedule == '17 9 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -77,6 +92,302 @@ jobs:
           ls
           pwd
           python src/ScrapingApartments_m2.py la-estrella
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_caldas:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_caldas') || (github.event_name == 'schedule' && github.event.schedule == '27 9 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py caldas
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_sabaneta:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_sabaneta') || (github.event_name == 'schedule' && github.event.schedule == '37 9 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py sabaneta
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_envigado:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_envigado') || (github.event_name == 'schedule' && github.event.schedule == '47 9 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py envigado
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_itagui:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_itagui') || (github.event_name == 'schedule' && github.event.schedule == '57 9 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py itagui
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_bello:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_bello') || (github.event_name == 'schedule' && github.event.schedule == '7 10 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py bello
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_copacabana:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_copacabana') || (github.event_name == 'schedule' && github.event.schedule == '17 10 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py copacabana
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_girardota:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_girardota') || (github.event_name == 'schedule' && github.event.schedule == '27 10 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py girardota
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeApartments_m2_barbosa:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_barbosa') || (github.event_name == 'schedule' && github.event.schedule == '37 10 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingApartments_m2.py barbosa
           ls
           pwd
 
