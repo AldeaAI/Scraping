@@ -1,0 +1,403 @@
+name: RunScraperHouses_m2
+run-name: ScrapeHouses_m2
+on: 
+  schedule:
+    - cron: '7 11 * * *' 
+    - cron: '17 11 * * *'
+    - cron: '27 11 * * *'
+    - cron: '37 11 * * *'
+    - cron: '47 11 * * *'
+    - cron: '57 11 * * *'
+    - cron: '7 12 * * *'
+    - cron: '17 12 * * *'
+    - cron: '27 12 * * *'
+    - cron: '37 12 * * *'
+  workflow_dispatch:
+    inputs:
+      job_to_run:
+        description: 'Which job to run?'
+        required: true
+        type: choice
+        options:
+          - ScrapeHouses_m2_medellin
+          - ScrapeHouses_m2_la-estrella
+          - ScrapeHouses_m2_caldas
+          - ScrapeHouses_m2_sabaneta     
+          - ScrapeHouses_m2_envigado           
+          - ScrapeHouses_m2_itagui   
+          - ScrapeHouses_m2_bello
+          - ScrapeHouses_m2_copacabana      
+          - ScrapeHouses_m2_girardota 
+          - ScrapeHouses_m2_barbosa  
+jobs:
+  ScrapeHouses_m2_medellin:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '7 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+      
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py medellin
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A 
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_la-estrella:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_la-estrella') || (github.event_name == 'schedule' && github.event.schedule == '17 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py la-estrella
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_caldas:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_caldas') || (github.event_name == 'schedule' && github.event.schedule == '27 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py caldas
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_sabaneta:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_sabaneta') || (github.event_name == 'schedule' && github.event.schedule == '37 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py sabaneta
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_envigado:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_envigado') || (github.event_name == 'schedule' && github.event.schedule == '47 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py envigado
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_itagui:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_itagui') || (github.event_name == 'schedule' && github.event.schedule == '57 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py itagui
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_bello:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_bello') || (github.event_name == 'schedule' && github.event.schedule == '7 12 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py bello
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_copacabana:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_copacabana') || (github.event_name == 'schedule' && github.event.schedule == '17 12 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py copacabana
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_girardota:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_girardota') || (github.event_name == 'schedule' && github.event.schedule == '27 12 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py girardota
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+  ScrapeHouses_m2_barbosa:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_barbosa') || (github.event_name == 'schedule' && github.event.schedule == '37 12 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py barbosa
+          ls
+          pwd
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git add -A
+          git commit -m 'Created csv file for the apartments'
+          git push
+
+       
