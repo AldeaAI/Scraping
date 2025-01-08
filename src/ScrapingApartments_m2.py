@@ -72,31 +72,31 @@ def extract_property_details(driver, url, timeout=10):
             real_estate = initial_props['pageProps']['realEstate']
             try:
                 details = {
-                     'propertyId'   : real_estate.get('propertyId'),
-                     'propertyType' : real_estate.get('propertyType'),
-                     # 'businessType' : real_estate.get('businessType'),
-                     'salePrice'     : real_estate.get('salePrice'),
-                     'area':real_estate.get('area'),
-                     'areac':real_estate.get('areac'),
-                     'rooms':real_estate.get('rooms'),
-                     'bathrooms':real_estate.get('bathrooms'),
-                     'garages':real_estate.get('garages'),
-                     'city': real_estate.get('city'),
-                     'zone': real_estate.get('zone'),
-                     # 'sector': real_estate.get('sector'),
-                     'neighborhood':real_estate.get('neighborhood'),
-                     'commonNeighborhood':real_estate.get('commonNeighborhood'),
-                     'adminPrice': real_estate['detail'].get('adminPrice'),
-                     'companyName':real_estate.get('companyName'),
-                     'propertyState': real_estate.get('propertyState'),
-                     'coordinates': real_estate.get('coordinates'),
-                     'link':real_estate.get('link'),
-                     'builtTime':real_estate.get('builtTime'),
-                     'stratum':real_estate.get('stratum'),
+                     'propertyId'   : real_estate.get('propertyId', None),
+                     'propertyType' : real_estate.get('propertyType', None),
+                     # 'businessType' : real_estate.get('businessType', None),
+                     'salePrice'     : real_estate.get('salePrice', None),
+                     'area':real_estate.get('area', None),
+                     'areac':real_estate.get('areac', None),
+                     'rooms':real_estate.get('rooms', None),
+                     'bathrooms':real_estate.get('bathrooms', None),
+                     'garages':real_estate.get('garages', None),
+                     'city': real_estate.get('city', None),
+                     'zone': real_estate.get('zone', None),
+                     # 'sector': real_estate.get('sector', None),
+                     'neighborhood':real_estate.get('neighborhood', None),
+                     'commonNeighborhood':real_estate.get('commonNeighborhood', None),
+                     'adminPrice': real_estate['detail'].get('adminPrice', None),
+                     'companyName':real_estate.get('companyName', None),
+                     'propertyState': real_estate.get('propertyState', None),
+                     'coordinates': real_estate.get('coordinates', None),
+                     'link':real_estate.get('link', None),
+                     'builtTime':real_estate.get('builtTime', None),
+                     'stratum':real_estate.get('stratum', None),
                      'Extraction Date':datetime.now().strftime("%Y-%m-%d"),
                 }
                 return details
-            except (KeyError, TypeError) as e:
+            except (KeyError, TypeError, AttributeError) as e:
                 logging.error(f"Error extracting specific data from {url}: {e}")
                 return None
         else:
