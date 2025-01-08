@@ -93,6 +93,7 @@ def extract_property_details(driver, url, timeout=10):
                      'link':real_estate.get('link'),
                      'builtTime':real_estate.get('builtTime'),
                      'stratum':real_estate.get('stratum'),
+                     'Extraction Date':datetime.now().strftime("%Y-%m-%d"),
                 }
                 return details
             except (KeyError, TypeError) as e:
