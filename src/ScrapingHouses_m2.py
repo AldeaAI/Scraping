@@ -96,7 +96,7 @@ def extract_property_details(driver, url, timeout=10):
                      'Extraction Date':datetime.now().strftime("%Y-%m-%d"),
                 }
                 return details
-            except (KeyError, TypeError) as e:
+            except (KeyError, TypeError, AttributeError) as e:
                 logging.error(f"Error extracting specific data from {url}: {e}")
                 return None
         else:
