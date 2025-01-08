@@ -397,7 +397,7 @@ jobs:
           git config --global user.email "AldeaAI@protonmail.comm"
           git config --global user.name "AldeaAI"
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the houses m2'
           git push
 
        
