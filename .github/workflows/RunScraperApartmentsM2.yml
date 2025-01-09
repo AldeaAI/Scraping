@@ -2,16 +2,16 @@ name: RunScraperApartments_m2
 run-name: ScrapeApartments_m2
 on: 
   schedule:
-    - cron: '7 9 * * *' 
-    - cron: '17 9 * * *'
+    - cron: '7 8 * * *' 
+    - cron: '27 8 * * *'
+    - cron: '47 8 * * *'
+    - cron: '7 9 * * *'
     - cron: '27 9 * * *'
-    - cron: '37 9 * * *'
     - cron: '47 9 * * *'
-    - cron: '57 9 * * *'
     - cron: '7 10 * * *'
-    - cron: '17 10 * * *'
     - cron: '27 10 * * *'
-    - cron: '37 10 * * *'
+    - cron: '47 10 * * *'
+    - cron: '7 11 * * *'
   workflow_dispatch:
     inputs:
       job_to_run:
@@ -31,7 +31,7 @@ on:
           - ScrapeApartments_m2_barbosa  
 jobs:
   ScrapeApartments_m2_medellin:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '7 9 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '7 8 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -68,7 +68,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_la-estrella:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_la-estrella') || (github.event_name == 'schedule' && github.event.schedule == '17 9 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_la-estrella') || (github.event_name == 'schedule' && github.event.schedule == '27 8 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -105,7 +105,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_caldas:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_caldas') || (github.event_name == 'schedule' && github.event.schedule == '27 9 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_caldas') || (github.event_name == 'schedule' && github.event.schedule == '47 8 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -142,7 +142,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_sabaneta:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_sabaneta') || (github.event_name == 'schedule' && github.event.schedule == '37 9 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_sabaneta') || (github.event_name == 'schedule' && github.event.schedule == '7 9 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -179,7 +179,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_envigado:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_envigado') || (github.event_name == 'schedule' && github.event.schedule == '47 9 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_envigado') || (github.event_name == 'schedule' && github.event.schedule == '27 9 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -216,7 +216,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_itagui:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_itagui') || (github.event_name == 'schedule' && github.event.schedule == '57 9 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_itagui') || (github.event_name == 'schedule' && github.event.schedule == '47 9 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -290,7 +290,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_copacabana:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_copacabana') || (github.event_name == 'schedule' && github.event.schedule == '17 10 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_copacabana') || (github.event_name == 'schedule' && github.event.schedule == '27 10 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -327,7 +327,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_girardota:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_girardota') || (github.event_name == 'schedule' && github.event.schedule == '27 10 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_girardota') || (github.event_name == 'schedule' && github.event.schedule == '47 10 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -364,7 +364,7 @@ jobs:
           git push
 
   ScrapeApartments_m2_barbosa:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_barbosa') || (github.event_name == 'schedule' && github.event.schedule == '37 10 * * *')
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeApartments_m2_barbosa') || (github.event_name == 'schedule' && github.event.schedule == '7 11 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
