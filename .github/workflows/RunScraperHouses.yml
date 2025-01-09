@@ -2,8 +2,7 @@ name: RunScraperHouses
 run-name: ScrapeHouses
 on: 
   schedule:
-    #    - cron: '*/10 * * * *' 
-    - cron: '8 8 * * *' 
+    - cron: '27 7 * * *' 
   workflow_dispatch:
 jobs:
   ScrapeHouses:
