@@ -51,6 +51,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -89,6 +90,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -127,6 +129,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -165,6 +168,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -203,6 +207,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -241,6 +246,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -279,6 +285,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -317,6 +324,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -355,6 +363,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
@@ -393,6 +402,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: execute py script # run main.py
+        id: try_1
         run: |
           ls
           pwd
