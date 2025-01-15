@@ -59,6 +59,11 @@ jobs:
           ls
           pwd
 
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py medellin
+
       - name: update csv file
         run: |
           pwd
@@ -97,6 +102,11 @@ jobs:
           python src/ScrapingApartments_m2.py la-estrella
           ls
           pwd
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py la-estrella
 
       - name: update csv file
         run: |
@@ -137,6 +147,11 @@ jobs:
           ls
           pwd
 
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py caldas
+
       - name: update csv file
         run: |
           pwd
@@ -175,6 +190,11 @@ jobs:
           python src/ScrapingApartments_m2.py sabaneta
           ls
           pwd
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py sabaneta
 
       - name: update csv file
         run: |
@@ -215,6 +235,11 @@ jobs:
           ls
           pwd
 
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py envigado
+
       - name: update csv file
         run: |
           pwd
@@ -253,6 +278,11 @@ jobs:
           python src/ScrapingApartments_m2.py itagui
           ls
           pwd
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py itagui
 
       - name: update csv file
         run: |
@@ -293,6 +323,11 @@ jobs:
           ls
           pwd
 
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py bello
+
       - name: update csv file
         run: |
           pwd
@@ -331,6 +366,11 @@ jobs:
           python src/ScrapingApartments_m2.py copacabana
           ls
           pwd
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py copacabana
 
       - name: update csv file
         run: |
@@ -371,6 +411,11 @@ jobs:
           ls
           pwd
 
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py girardota
+
       - name: update csv file
         run: |
           pwd
@@ -409,6 +454,11 @@ jobs:
           python src/ScrapingApartments_m2.py barbosa
           ls
           pwd
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          python src/ScrapingApartments_m2.py barbosa
 
       - name: update csv file
         run: |
