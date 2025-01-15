@@ -71,7 +71,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A 
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_la-estrella:
@@ -115,7 +115,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_caldas:
@@ -159,7 +159,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_sabaneta:
@@ -203,7 +203,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_envigado:
@@ -247,7 +247,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_itagui:
@@ -291,7 +291,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_bello:
@@ -335,7 +335,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_copacabana:
@@ -379,7 +379,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_girardota:
@@ -423,7 +423,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the apartments'
+          git commit -m 'Created csv file for the Houses'
           git push
 
   ScrapeHouses_m2_barbosa:
