@@ -185,4 +185,4 @@ if __name__ == "__main__":
         logging.info("Property data saved to property_data.csv")
     else:
         logging.info("Could not retrieve property links or create DataFrame.")
-
+        sys.exit(1)
