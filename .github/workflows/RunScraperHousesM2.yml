@@ -58,6 +58,7 @@ jobs:
           python src/ScrapingHouses_m2.py medellin
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -102,6 +103,7 @@ jobs:
           python src/ScrapingHouses_m2.py la-estrella
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -146,6 +148,7 @@ jobs:
           python src/ScrapingHouses_m2.py caldas
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -190,6 +193,7 @@ jobs:
           python src/ScrapingHouses_m2.py sabaneta
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -234,6 +238,7 @@ jobs:
           python src/ScrapingHouses_m2.py envigado
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -278,6 +283,7 @@ jobs:
           python src/ScrapingHouses_m2.py itagui
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -322,6 +328,7 @@ jobs:
           python src/ScrapingHouses_m2.py bello
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -366,6 +373,7 @@ jobs:
           python src/ScrapingHouses_m2.py copacabana
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -410,6 +418,7 @@ jobs:
           python src/ScrapingHouses_m2.py girardota
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
@@ -454,6 +463,7 @@ jobs:
           python src/ScrapingHouses_m2.py barbosa
           ls
           pwd
+        continue-on-error: true
 
       - name: execute py script if previous failed # run main.py
         if: ${{steps.try_1.outcome == 'failure'}}
