@@ -174,7 +174,7 @@ if __name__ == "__main__":
     # city = 'girardota'
     # city = 'barbosa'
     main_url = f"https://www.metrocuadrado.com/apartaestudio-apartamento/venta/{city}/"
-    df = get_property_links_selenium(main_url, limit=None)  # Limit for testing
+    df = get_property_links_selenium(main_url, limit=None, timeout=120)  # Limit for testing
 
     if df is not None:
         # Create filename with date
