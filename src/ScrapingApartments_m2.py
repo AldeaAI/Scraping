@@ -126,7 +126,7 @@ def get_property_links_selenium(url_main, timeout=10, limit=None):
                             "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chromium/114.0.0.0 Safari/537.36", # Chromium
                             ]
         user_agent = random.choice(user_agents)
-        chrome_options.add_argument(f"user-agent={user_agent}")
+        options.add_argument(f"user-agent={user_agent}")
         driver = webdriver.Chrome(options=options)
         driver.get(url_main)
 
