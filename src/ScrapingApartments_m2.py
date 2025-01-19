@@ -118,6 +118,14 @@ def get_property_links_selenium(url_main, timeout=10, limit=None):
     try:
         options = webdriver.ChromeOptions()
         options.add_argument('--headless=new')  # Run Chrome in headless mode (no browser window)
+        user_agents = [
+                            # Chrome/Chromium on Ubuntu
+                            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36", # Basic Chrome on Linux
+                            "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36", # More specific to Ubuntu
+                            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chromium/114.0.0.0 Safari/537.36", # Chromium
+                            ]
+        user_agent = random.choice(user_agents)
+        chrome_options.add_argument(f"user-agent={user_agent}")
         driver = webdriver.Chrome(options=options)
         driver.get(url_main)
 
