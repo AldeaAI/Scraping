@@ -17,6 +17,7 @@ import logging
 import pandas as pd
 import sys
 import random
+# import pprint
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -37,15 +38,22 @@ def extract_json_data(driver, url, timeout=10):
         wait = WebDriverWait(driver, timeout)
         soup = BeautifulSoup(driver.page_source, "html.parser")
 
-        script_tags = soup.find_all("script", type="application/json")
+        script_tags = soup.find_all("script")
+        # print(script_tags)
         if script_tags:
             for script_tag in script_tags:
-                try:
-                    json_data = json.loads(script_tag.string)
+                # try:
+                if script_tag.string and '{\\"data\\"' in script_tag.string:
+                    start_index = script_tag.string.find('{\\"data\\"')
+                    end_index = script_tag.string.rfind("}}]]}],") + 5
+                    json_string = script_tag.string[start_index:end_index]
+                    json_string = json_string.replace("\\", "")
+                    json_string = json_string[:-3]
+                    json_data = json.loads(json_string)
                     return json_data
-                except json.JSONDecodeError as e:
-                    logging.error(f"JSON Decode Error on {url}: {e}")
-                    return None
+                # except json.JSONDecodeError as e:
+                #     logging.error(f"JSON Decode Error on {url}: {e}")
+                #     return None
         return None  # No script tag found
 
     except TimeoutException:
@@ -67,42 +75,39 @@ def extract_property_details(driver, url, timeout=10):
         dict: Extracted property details, or None if not found or on error.
     """
     json_data = extract_json_data(driver, url, timeout)
-    if json_data and 'props' in json_data and 'initialProps' in json_data['props']:
-        initial_props = json_data['props']['initialProps']
-        if 'pageProps' in initial_props and 'realEstate' in initial_props['pageProps']:
-            real_estate = initial_props['pageProps']['realEstate']
-            try:
-                details = {
-                     'propertyId'   : real_estate.get('propertyId', None),
-                     'propertyType' : real_estate.get('propertyType', None),
-                     # 'businessType' : real_estate.get('businessType', None),
-                     'salePrice'     : real_estate.get('salePrice', None),
-                     'area':real_estate.get('area', None),
-                     'areac':real_estate.get('areac', None),
-                     'rooms':real_estate.get('rooms', None),
-                     'bathrooms':real_estate.get('bathrooms', None),
-                     'garages':real_estate.get('garages', None),
-                     'city': real_estate.get('city', None),
-                     'zone': real_estate.get('zone', None),
+    if json_data:
+        json_data = json_data.get('data', None)
+        try:
+            details = {
+                     'propertyId'   :      json_data.get('propertyId', None),
+                     'propertyType' :      json_data.get('propertyType', None),
+                     # 'businessType' :    real_estate.get('businessType', None),
+                     'salePrice'     :     json_data.get('salePrice', None),
+                     'area':               json_data.get('area', None),
+                     'areac':              json_data.get('areac', None),
+                     'rooms':              json_data.get('rooms', None),
+                     'bathrooms':          json_data.get('bathrooms', None),
+                     'garages':            json_data.get('garages', None),
+                     'city':               json_data.get('city', None),
+                     'zone':               json_data.get('zone', None),
                      # 'sector': real_estate.get('sector', None),
-                     'neighborhood':real_estate.get('neighborhood', None),
-                     'commonNeighborhood':real_estate.get('commonNeighborhood', None),
-                     'adminPrice': real_estate['detail'].get('adminPrice', None),
-                     'companyName':real_estate.get('companyName', None),
-                     'propertyState': real_estate.get('propertyState', None),
-                     'coordinates': real_estate.get('coordinates', None),
-                     'link':real_estate.get('link', None),
-                     'builtTime':real_estate.get('builtTime', None),
-                     'stratum':real_estate.get('stratum', None),
+                     'neighborhood':       json_data.get('neighborhood', None),
+                     'commonNeighborhood': json_data.get('commonNeighborhood', None),
+                     'adminPrice':         json_data['detail'].get('adminPrice', None),
+                     'companyName':        json_data.get('companyName', None),
+                     'propertyState':      json_data.get('propertyState', None),
+                     'coordinates':        json_data.get('coordinates', None),
+                     'link':               json_data.get('link', None),
+                     'builtTime':          json_data.get('builtTime', None),
+                     'stratum':            json_data.get('stratum', None),
                      'Extraction Date':datetime.now().strftime("%Y-%m-%d"),
-                }
-                return details
-            except (KeyError, TypeError, AttributeError) as e:
-                logging.error(f"Error extracting specific data from {url}: {e}")
-                return None
-        else:
-            logging.warning(f"'realEstate' key not found in JSON on {url}")
+                    }
+            return details
+
+        except (KeyError, TypeError, AttributeError) as e:
+            logging.error(f"Error extracting specific data from {url}: {e}")
             return None
+
     return None
 
 def get_property_links_selenium(url_main, timeout=10, limit=None):
@@ -131,8 +136,11 @@ def get_property_links_selenium(url_main, timeout=10, limit=None):
         driver.get(url_main)
 
         wait = WebDriverWait(driver, timeout)
+        #scroll to the bottom to load objects
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
         # Find all card headers that contain the property links
-        card_headers = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "card-header")))
+        card_headers = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "property-card__content")))
 
         links = []
         for card_header in card_headers:
@@ -191,7 +199,7 @@ if __name__ == "__main__":
         filename = f"data/Apartments/listings_data_m2_{city}_{extraction_date_str}.csv"  # Filename with date
         df.to_csv(filename, index=False, encoding="utf-8")  # Saves the dataframe to a csv file
         print(f"Data saved to {filename}") #Prints the filename
-        logging.info("Property data saved to property_data.csv")
+        logging.info(f"Property data saved to {filename}")
     else:
         logging.info("Could not retrieve property links or create DataFrame.")
         sys.exit(1)
