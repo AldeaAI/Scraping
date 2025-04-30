@@ -1,0 +1,493 @@
+name: RunScraperOffices_m2
+run-name: ScrapeOffices_m2
+on: 
+  schedule:
+    - cron: '27 15 * * *' 
+    - cron: '47 15 * * *'
+    - cron: '7 16 * * *'
+    - cron: '27 16 * * *'
+    - cron: '47 16 * * *'
+    - cron: '7 17 * * *'
+    - cron: '27 17 * * *'
+    - cron: '47 17 * * *'
+    - cron: '7 18 * * *'
+    - cron: '27 18 * * *'
+  workflow_dispatch:
+    inputs:
+      job_to_run:
+        description: 'Which job to run?'
+        required: true
+        type: choice
+        options:
+          - ScrapeOffices_m2_medellin
+          - ScrapeOffices_m2_la-estrella
+          - ScrapeOffices_m2_caldas
+          - ScrapeOffices_m2_sabaneta     
+          - ScrapeOffices_m2_envigado           
+          - ScrapeOffices_m2_itagui   
+          - ScrapeOffices_m2_bello
+          - ScrapeOffices_m2_copacabana      
+          - ScrapeOffices_m2_girardota 
+          - ScrapeOffices_m2_barbosa  
+jobs:
+  ScrapeOffices_m2_medellin:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '27 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+      
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py medellin
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py medellin
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A 
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_la-estrella:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_la-estrella') || (github.event_name == 'schedule' && github.event.schedule == '47 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py la-estrella
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py la-estrella
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_caldas:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_caldas') || (github.event_name == 'schedule' && github.event.schedule == '7 12 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py caldas
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py caldas
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_sabaneta:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_sabaneta') || (github.event_name == 'schedule' && github.event.schedule == '27 12 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py sabaneta
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py sabaneta
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_envigado:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_envigado') || (github.event_name == 'schedule' && github.event.schedule == '47 12 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py envigado
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py envigado
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_itagui:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_itagui') || (github.event_name == 'schedule' && github.event.schedule == '7 13 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py itagui
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py itagui
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_bello:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_bello') || (github.event_name == 'schedule' && github.event.schedule == '27 13 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py bello
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py bello
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_copacabana:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_copacabana') || (github.event_name == 'schedule' && github.event.schedule == '47 13 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py copacabana
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py copacabana
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_girardota:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_girardota') || (github.event_name == 'schedule' && github.event.schedule == '7 14 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py girardota
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py girardota
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices'
+          git push
+
+  ScrapeOffices_m2_barbosa:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_barbosa') || (github.event_name == 'schedule' && github.event.schedule == '27 14 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingOffices_m2.py barbosa
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingOffices_m2.py barbosa 
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A
+          git commit -m 'Created csv file for the Offices m2'
+          git push
+
+       
