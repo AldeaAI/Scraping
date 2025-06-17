@@ -11,6 +11,8 @@ import numpy as np
 import matplotlib.ticker as mticker
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from adjustText import adjust_text
+import matplotlib.image as mpimg
 
 
 
@@ -174,6 +176,14 @@ plot = gdf_4326_valid.plot(
 # Draw the edges of all neighborhoods (including those without data)
 gdf_4326.plot(facecolor='none', ax=ax, edgecolor='k', linewidth=3)
 
+#making the map square, for instagram
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+x_mid = (xlim[1] + xlim[0])/2
+y_range = ylim[1] - ylim[0]
+ax.set_xlim(x_mid-0.5*y_range, x_mid+0.5*y_range)
+
+
 # Add the basemap tiles to the plot
 source = ctx.providers[map_provider]
 ctx.add_basemap(ax, crs=gdf_4326.crs.to_string(), source=source)
@@ -187,7 +197,17 @@ elif property_type == 'Offices':
     property_type_label = 'Oficinas Usadas'
 
 plt.rcParams.update({'axes.titlesize': 18})
-plt.title(f'Medellín - El Poblado\nPrecio de Venta {property_type_label}\nQ{quarter} - {year}')
+# plt.title(f'El Poblado - Medellín\nPrecio de Venta {property_type_label}\nQ{quarter} - {year}')
+title_string = (
+    r'$\bf{' f'El\ Poblado - Medellín' r'}$' + 
+    '\n' +
+    r'Precio de Venta ' f'{property_type_label}' + 
+    '\n' +
+    r'Q' f'{quarter}' r' - ' f'{year}'
+)
+
+
+plt.title(title_string)
 plt.axis('off')
 
 # Format the colorbar to show values in millions of COP
@@ -197,7 +217,29 @@ cbar.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'{x/1e6:.0f}'
 for c in cbar.collections:
     c.set_alpha(alpha_value)
 
-# Annotate each neighborhood with its name and median price (if available)
+# Set the size of the numbers in the colorbar
+cbar.tick_params(labelsize=11)
+
+# Adjust colorbar height to match the y-axis range
+cbar = plot.get_figure().axes[-1]
+fig = plot.get_figure()
+# Get position of the main axis and colorbar axis
+ax_pos = ax.get_position()
+cbar_pos = cbar.get_position()
+# Set colorbar height to match the main axis height (ylim)
+cbar.set_position([
+    cbar_pos.x0,
+    ax_pos.y0,
+    cbar_pos.width,
+    ax_pos.height
+])
+
+# Import adjust_text for text overlap prevention
+
+# Create list to store text annotations
+texts = []
+
+# Create annotations for each neighborhood
 for idx, row in gdf_4326.iterrows():
     centroid = row['geometry'].centroid
     neighbourhood_name = row['nombre']
@@ -207,39 +249,67 @@ for idx, row in gdf_4326.iterrows():
         label = f'{neighbourhood_name}\n{value:,.0f} MCOP'
     else:
         label = f'{neighbourhood_name}'
-    ax.annotate(
+    
+    text = ax.text(
+        centroid.x, centroid.y,
         label,
-        (centroid.x, centroid.y),
         color='black',
-        fontsize=9,
+        fontsize=10,
         ha='center',
         va='center',
         fontweight='bold',
         bbox=dict(facecolor='white', alpha=alpha_value, edgecolor='none', boxstyle='round,pad=0.2')
     )
+    texts.append(text)
 
-    # Add a logo to the bottom left of the plot
-    import matplotlib.image as mpimg
+# Adjust text positions to prevent overlap
+adjust_text(
+    texts,
+    force_points=0.2,
+    force_text=0.5,
+    expand_points=(1.2, 1.2),
+    expand_text=(1.2, 1.2),
+    # arrowprops=dict(arrowstyle="-", color='gray', lw=0.5)
+)
 
-    logo_path = 'Inputs/LogoOriginal.png'
-    logo_img = mpimg.imread(logo_path)
-    imagebox = OffsetImage(logo_img, zoom=0.3)  # Adjust zoom as needed
+# Add a logo to the bottom left of the plot
+logo_path = 'Inputs/LogoOriginal.png'
+logo_img = mpimg.imread(logo_path)
+imagebox = OffsetImage(logo_img, zoom=0.3)  # Adjust zoom as needed
 
-    # Position: (x0, y0) in axes fraction coordinates (0,0 is bottom left)
-    ab = AnnotationBbox(
-        imagebox,
-        (0.8, 0.01),  # Adjust as needed for position
-        xycoords='axes fraction',
-        frameon=False,
-        box_alignment=(0, 0)
-    )
-    ax.add_artist(ab)
+# Position: (x0, y0) in axes fraction coordinates (0,0 is bottom left)
+ab = AnnotationBbox(
+    imagebox,
+    (0.845, 0.01),  # Adjust as needed for position
+    xycoords='axes fraction',
+    frameon=False,
+    box_alignment=(0, 0)
+)
+ax.add_artist(ab)
+
+# Add "@AldeaAI" text to top right corner
+# Add Instagram logo (using unicode character) and @AldeaAI text
+ax.text(
+    0.99, 0.99,
+    '\u2002\uf16d  @AldeaAI',  # Unicode for Instagram logo + text
+    transform=ax.transAxes,
+    fontsize=14,
+    fontweight='bold',
+    color='black',
+    ha='right',
+    va='top',
+    bbox=dict(facecolor='white', alpha=alpha_value, edgecolor='none', boxstyle='round,pad=0.2'),
+    fontname='FontAwesome'  # Requires FontAwesome font to be installed
+)
+
 # Display the plot
 # plt.show()
+
 
 # Save the plot to a file
 filename = f'{year}_Q{quarter}_median_price_{property_type}_ElPoblado_map.png'
 fig.savefig(f'../../DataVisualisation/{filename}', dpi=80, bbox_inches='tight')
+# fig.savefig(f'../../DataVisualisation/{filename}', dpi=80)
 
 
 
