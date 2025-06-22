@@ -2,6 +2,7 @@ name: RunScraperOffices_m2
 run-name: ScrapeOffices_m2
 on: 
   schedule:
+    - cron: '7 15 * * *' 
     - cron: '27 15 * * *' 
     - cron: '47 15 * * *'
     - cron: '7 16 * * *'
@@ -19,6 +20,7 @@ on:
         required: true
         type: choice
         options:
+          - ScrapeOffices_m2_bogota
           - ScrapeOffices_m2_medellin
           - ScrapeOffices_m2_la-estrella
           - ScrapeOffices_m2_caldas
@@ -30,8 +32,8 @@ on:
           - ScrapeOffices_m2_girardota 
           - ScrapeOffices_m2_barbosa  
 jobs:
-  ScrapeOffices_m2_medellin:
-    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '27 15 * * *')
+  ScrapeOffices_m2_bogota:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeOffices_m2_bogota') || (github.event_name == 'schedule' && github.event.schedule == '7 15 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -55,7 +57,7 @@ jobs:
         run: |
           ls
           pwd
-          python src/ScrapingOffices_m2.py medellin
+          python src/ScrapingOffices_m2.py bogota
           ls
           pwd
         continue-on-error: true
@@ -64,7 +66,7 @@ jobs:
         if: ${{steps.try_1.outcome == 'failure'}}
         run: |
           sleep 5m
-          python src/ScrapingOffices_m2.py medellin
+          python src/ScrapingOffices_m2.py bogota
 
       - name: update csv file
         run: |

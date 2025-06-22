@@ -2,6 +2,7 @@ name: RunScraperHouses_m2
 run-name: ScrapeHouses_m2
 on: 
   schedule:
+    - cron: '7 11 * * *' 
     - cron: '27 11 * * *' 
     - cron: '47 11 * * *'
     - cron: '7 12 * * *'
@@ -19,6 +20,7 @@ on:
         required: true
         type: choice
         options:
+          - ScrapeHouses_m2_bogota
           - ScrapeHouses_m2_medellin
           - ScrapeHouses_m2_la-estrella
           - ScrapeHouses_m2_caldas
@@ -30,6 +32,52 @@ on:
           - ScrapeHouses_m2_girardota 
           - ScrapeHouses_m2_barbosa  
 jobs:
+  ScrapeHouses_m2_bogota:
+    if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_bogota') || (github.event_name == 'schedule' && github.event.schedule == '7 11 * * *')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install ubuntu packages
+        run:  sudo apt-get  install -y google-chrome-stable python3-lxml
+      
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: execute py script # run main.py
+        id: try_1
+        run: |
+          ls
+          pwd
+          python src/ScrapingHouses_m2.py bogota
+          ls
+          pwd
+        continue-on-error: true
+
+      - name: execute py script if previous failed # run main.py
+        if: ${{steps.try_1.outcome == 'failure'}}
+        run: |
+          sleep 5m
+          python src/ScrapingHouses_m2.py bogota
+
+      - name: update csv file
+        run: |
+          pwd
+          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.name "AldeaAI"
+          git pull
+          git add -A 
+          git commit -m 'Created csv file for the Houses'
+          git push
+
   ScrapeHouses_m2_medellin:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '27 11 * * *')
     runs-on: ubuntu-latest
