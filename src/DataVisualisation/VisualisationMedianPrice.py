@@ -26,7 +26,7 @@ quarter = 1  # Desired quarter for analysis (1, 2, 3, or 4)
 
 # %%
 # Find all CSV files for the selected property type and city
-csv_files = glob.glob(f'../../data/{property_type}/listings_data_m2_medellin*.csv')
+csv_files = glob.glob(f'data/{property_type}/listings_data_m2_medellin*.csv')
 
 # Read and concatenate all CSV files into a single DataFrame for analysis
 df = pd.concat((pd.read_csv(f) for f in csv_files), ignore_index=True)
@@ -71,8 +71,8 @@ df_map = df.dropna(subset=['lon', 'lat'])
 # %%
 # Load the shapefile for neighborhoods (barrios) and corregimientos
 # These files contain the geographic boundaries for spatial analysis
-gdf = gpd.read_file('Inputs/shp_barrios_y_veredas/barrios_y_veredas.shp')
-gdf_corregimientos = gpd.read_file('Inputs/shp_comunas_y_corregimientos_/comunas_y_corregimientos_.shp')
+gdf = gpd.read_file('src/DataVisualisation/Inputs/shp_barrios_y_veredas/barrios_y_veredas.shp')
+gdf_corregimientos = gpd.read_file('src/DataVisualisation/Inputs/shp_comunas_y_corregimientos_/comunas_y_corregimientos_.shp')
 
 # Filter out rows with missing neighborhood names
 gdf = gdf[gdf['nombre'].notna()]
@@ -181,7 +181,7 @@ xlim = ax.get_xlim()
 ylim = ax.get_ylim()
 x_mid = (xlim[1] + xlim[0])/2
 y_range = ylim[1] - ylim[0]
-ax.set_xlim(x_mid-0.5*y_range, x_mid+0.5*y_range)
+ax.set_xlim(x_mid-0.467*y_range, x_mid+0.467*y_range)
 
 
 # Add the basemap tiles to the plot
@@ -273,7 +273,7 @@ adjust_text(
 )
 
 # Add a logo to the bottom left of the plot
-logo_path = 'Inputs/LogoOriginal.png'
+logo_path = 'src/DataVisualisation/Inputs/LogoOriginal.png'
 logo_img = mpimg.imread(logo_path)
 imagebox = OffsetImage(logo_img, zoom=0.3)  # Adjust zoom as needed
 
@@ -290,8 +290,8 @@ ax.add_artist(ab)
 # Add "@AldeaAI" text to top right corner
 # Add Instagram logo (using unicode character) and @AldeaAI text
 ax.text(
-    0.99, 0.99,
-    '\u2002\uf16d  @AldeaAI',  # Unicode for Instagram logo + text
+    0.85, 0.99,
+    '\uf16d',  # Unicode for Instagram logo
     transform=ax.transAxes,
     fontsize=14,
     fontweight='bold',
@@ -302,13 +302,26 @@ ax.text(
     fontname='FontAwesome'  # Requires FontAwesome font to be installed
 )
 
+ax.text(
+    0.97, 0.99,
+    '@AldeaAI',  # Text for Instagram handle
+    transform=ax.transAxes,
+    fontsize=14,
+    fontweight='bold',
+    color='black',
+    ha='right',
+    va='top',
+    bbox=dict(facecolor='white', alpha=alpha_value, edgecolor='none', boxstyle='round,pad=0.2'),
+    fontfamily='Roboto'  # Use Roboto font for the text
+)
+
 # Display the plot
 # plt.show()
 
 
 # Save the plot to a file
 filename = f'{year}_Q{quarter}_median_price_{property_type}_ElPoblado_map.png'
-fig.savefig(f'../../DataVisualisation/{filename}', dpi=80, bbox_inches='tight')
+fig.savefig(f'DataVisualisation/{filename}', dpi=80, bbox_inches='tight')
 # fig.savefig(f'../../DataVisualisation/{filename}', dpi=80)
 
 
