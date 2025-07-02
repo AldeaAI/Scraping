@@ -110,12 +110,12 @@ df_map['neighbourhood_from_shape'] = gdf_points['nombre']
 
 # %%
 # Calculate average and median sale price for each neighborhood in df_map
-avg_price_by_neigh = df_map.groupby('neighbourhood_from_shape')['salePrice'].mean()
-median_price_by_neigh = df_map.groupby('neighbourhood_from_shape')['salePrice'].median()
+avg_price_by_neigh = df_map.groupby('neighbourhood_from_shape')['price_per_m2'].mean()
+median_price_by_neigh = df_map.groupby('neighbourhood_from_shape')['price_per_m2'].median()
 
 # Calculate the Semi-Interquartile Range (SIQR) for each neighbourhood
-q1 = df_map.groupby('neighbourhood_from_shape')['salePrice'].quantile(0.25)
-q3 = df_map.groupby('neighbourhood_from_shape')['salePrice'].quantile(0.75)
+q1 = df_map.groupby('neighbourhood_from_shape')['price_per_m2'].quantile(0.25)
+q3 = df_map.groupby('neighbourhood_from_shape')['price_per_m2'].quantile(0.75)
 siqr_by_neigh = (q3 - q1) / 2
 
 # Map SIQR to the gdf_4326 GeoDataFrame
@@ -123,7 +123,7 @@ gdf_4326['siqr'] = gdf_4326['nombre'].map(siqr_by_neigh)
 
 
 # Calculate the number of properties per neighbourhood
-count_by_neigh = df_map.groupby('neighbourhood_from_shape')['salePrice'].count()
+count_by_neigh = df_map.groupby('neighbourhood_from_shape')['price_per_m2'].count()
 gdf_4326['num_properties'] = gdf_4326['nombre'].map(count_by_neigh).fillna(0).astype(int)
 
 # Map the average price to the gdf_4326 GeoDataFrame based on 'nombre'
@@ -201,7 +201,7 @@ plt.rcParams.update({'axes.titlesize': 18})
 title_string = (
     r'$\bf{' f'El\ Poblado - Medellín' r'}$' + 
     '\n' +
-    r'Precio de Venta ' f'{property_type_label}' + 
+    r'Precio por m2 ' f'{property_type_label}' + 
     '\n' +
     r'Q' f'{quarter}' r' - ' f'{year}'
 )
@@ -246,7 +246,7 @@ for idx, row in gdf_4326.iterrows():
     median_price = row['median_price']
     if not np.isnan(median_price) and median_price != 0:
         value = median_price / 1e6
-        label = f'{neighbourhood_name}\n{value:,.0f} MCOP'
+        label = f'{neighbourhood_name}\n{value:,.1f} MCOP'
     else:
         label = f'{neighbourhood_name}'
     
@@ -320,7 +320,7 @@ ax.text(
 
 
 # Save the plot to a file
-filename = f'{year}_Q{quarter}_median_price_{property_type}_ElPoblado_map.png'
+filename = f'{year}_Q{quarter}_median_price_per_m2_{property_type}_ElPoblado_map.png'
 fig.savefig(f'DataVisualisation/{filename}', dpi=80, bbox_inches='tight')
 # fig.savefig(f'../../DataVisualisation/{filename}', dpi=80)
 
