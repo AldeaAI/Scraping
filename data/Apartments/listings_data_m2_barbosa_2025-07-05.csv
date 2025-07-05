@@ -1,0 +1,2 @@
+propertyId,propertyType,salePrice,area,areac,rooms,bathrooms,garages,city,zone,neighborhood,commonNeighborhood,adminPrice,companyName,propertyState,coordinates,link,builtTime,stratum,Extraction Date
+12792-M5815166,"{'id': '1', 'nombre': 'Apartamento'}",165000000,40,40,1,1,0,"{'id': '4414', 'nombre': 'Barbosa'}",,CENTRO,Barbosa,,INMOBILIAREA,Usado,"{'lon': -75.33048, 'lat': 6.436151}",https://www.metrocuadrado.com/inmueble/venta-apartamento-barbosa-centro-1-habitaciones-1-banos/12792-M5815166,Entre 10 y 20 años,2,2025-07-05
