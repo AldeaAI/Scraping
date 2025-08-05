@@ -1,0 +1,2 @@
+propertyId,propertyType,salePrice,area,areac,rooms,bathrooms,garages,city,zone,neighborhood,commonNeighborhood,adminPrice,companyName,propertyState,coordinates,link,builtTime,stratum,Extraction Date
+3312-M3327778,"{'id': '1', 'nombre': 'Apartamento'}",410000000,54,54,1,2,0,"{'id': '1', 'nombre': 'Bogotá D.C.'}","{'id': '2', 'nombre': 'Chapinero'}",SUCRE,CHAPINERO JAVERIANA,301000,VIVIENDA ACTUAL,Usado,"{'lon': -74.0653, 'lat': 4.6304064}",https://www.metrocuadrado.com/inmueble/venta-apartamento-bogota-sucre-1-habitaciones-2-banos/3312-M3327778,Entre 10 y 20 años,4,2025-08-05
