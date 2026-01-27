@@ -44,10 +44,19 @@ def extract_json_data(driver, url, timeout=10):
                 # try:
                 if script_tag.string and '{\\"data\\"' in script_tag.string:
                     start_index = script_tag.string.find('{\\"data\\"')
-                    end_index = script_tag.string.rfind("}}]]}],") + 5
+                    # Find the matching closing brace for the opening brace at start_index
+                    brace_count = 0
+                    end_index = start_index
+                    for i in range(start_index, len(script_tag.string)):
+                        if script_tag.string[i] == '{':
+                            brace_count += 1
+                        elif script_tag.string[i] == '}':
+                            brace_count -= 1
+                            if brace_count == 0:
+                                end_index = i + 1
+                                break
                     json_string = script_tag.string[start_index:end_index]
                     json_string = json_string.replace("\\", "")
-                    json_string = json_string[:-3]
                     json_data = json.loads(json_string)
                     return json_data
                 # except json.JSONDecodeError as e:
