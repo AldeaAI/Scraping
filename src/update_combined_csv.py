@@ -28,7 +28,7 @@ def update_combined_csv():
     for csv_file in csv_files:
         # Get the relative path from data_dir
         rel_path = csv_file.relative_to(data_dir)
-        if rel_path not in processed:
+        if str(rel_path) not in processed:
             new_files.append((csv_file, rel_path))
     
     print(f"Found {len(new_files)} new CSV files to process")
@@ -59,7 +59,7 @@ def update_combined_csv():
                     writer.writerow(row)
         
         # Mark this file as processed
-        processed.add(rel_path)
+        processed.add(str(rel_path))
     
     # Update the processed files list
     with open(processed_file, 'w') as f:
