@@ -1,0 +1,37 @@
+name: Weekly CSV Update
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Every Sunday at 00:00 UTC
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  update-and-deduplicate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
+
+    - name: Update combined CSV with new files
+      run: |
+        python src/update_combined_csv.py
+
+    - name: Deduplicate and transform CSV
+      run: |
+        python src/deduplicate_csv.py
+
+    - name: Upload deduplicated CSV as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: deduplicated-listings
+        path: data/combined_listings_deduplicated.csv
