@@ -11,6 +11,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        # We need write access to push back
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -30,8 +33,16 @@ jobs:
       run: |
         python src/deduplicate_csv.py
 
-    - name: Upload deduplicated CSV as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: deduplicated-listings
-        path: data/combined_listings_deduplicated.csv
+    - name: Commit changes
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        # Add the files that were modified
+        git add data/combined_listings.csv data/processed_files.txt data/combined_listings_deduplicated.csv
+        # Check if there are changes to commit
+        if ! git diff --cached --quiet; then
+          git commit -m "Weekly update: combine and deduplicate CSV files [skip ci]"
+          git push
+        else
+          echo "No changes to commit."
+        fi
