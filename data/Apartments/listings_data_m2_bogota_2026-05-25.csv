@@ -1,0 +1,2 @@
+propertyId,propertyType,salePrice,area,areac,rooms,bathrooms,garages,city,zone,neighborhood,commonNeighborhood,adminPrice,companyName,propertyState,coordinates,link,builtTime,stratum,Extraction Date
+4498-M6102045,"{'id': '1', 'nombre': 'Apartamento'}",625000000,57.8,57.8,1,2,2,"{'id': '1', 'nombre': 'Bogotá D.C.'}",,SANTA BARBARA,Santa Barbara,497000,TIERRA HABITAT,Usado,"{'lon': -74.05, 'lat': 4.70243}",https://www.metrocuadrado.com/inmueble/venta-apartamento-bogota-santa-barbara-1-habitaciones-2-banos-2-garajes/4498-M6102045,Entre 10 y 20 años,5,2026-05-25
