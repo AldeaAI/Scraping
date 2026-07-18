@@ -1,0 +1,2 @@
+propertyId,propertyType,salePrice,area,areac,rooms,bathrooms,garages,city,zone,neighborhood,commonNeighborhood,adminPrice,companyName,propertyState,coordinates,link,builtTime,stratum,Extraction Date
+4877-M6859469,"{'id': '14', 'nombre': 'Apartaestudio'}",502300000,41.39,41.39,1,2,2,"{'id': '1', 'nombre': 'Bogotá D.C.'}",,MARLY,Marly,242400,TELEPORT SA,Usado,"{'lon': -74.06872, 'lat': 4.62738}",https://www.metrocuadrado.com/inmueble/venta-apartaestudio-bogota-marly-1-habitaciones-2-banos-2-garajes/4877-M6859469,Entre 0 y 5 años,3,2026-07-18
