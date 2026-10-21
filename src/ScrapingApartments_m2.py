@@ -128,7 +128,7 @@ def get_property_links_selenium(url_main, timeout=10, limit=None):
         limit: Maximum number of links to process.
 
     Returns:
-        pandas.DataFrame: DataFrame containing property details, or None on error.
+        pandas.DataFrame: DataFrame containing property details. Empty if the site has no properties for the search; None on error.
     """
     try:
         options = webdriver.ChromeOptions()
@@ -148,17 +148,30 @@ def get_property_links_selenium(url_main, timeout=10, limit=None):
         #scroll to the bottom to load objects
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-        # Find all card headers that contain the property links
-        card_headers = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "property-card__content")))
+        # Wait until the page shows either property cards or the "no results" message
+        no_results_xpath = "//*[contains(., 'No tenemos inmuebles')]"
+        wait.until(lambda d: d.find_elements(By.CLASS_NAME, "property-card__content") or d.find_elements(By.XPATH, no_results_xpath))
 
+        # Collect property links. Cards also hold ads (e.g. alarm systems), so keep only real "/inmueble/" links
         links = []
-        for card_header in card_headers:
+        for card_header in driver.find_elements(By.CLASS_NAME, "property-card__content"):
             a_tags = card_header.find_elements(By.TAG_NAME, "a")
             for a_tag in a_tags:
                 href = a_tag.get_attribute("href")
                 # Exclude links containing "proyecto" (project/new development properties)
-                if href and "proyecto" not in href.lower():
+                if href and "/inmueble/" in href.lower() and "proyecto" not in href.lower():
                     links.append(href)
+
+        if not links:
+            if driver.find_elements(By.XPATH, no_results_xpath):
+                # The site answers correctly: this search has no properties right now
+                logging.info("The site reports no properties for this search.")
+                driver.quit()
+                return pd.DataFrame()
+            # No listings and no "no results" message: the page layout has probably changed
+            logging.error("No listings and no 'no results' message found; the page layout may have changed.")
+            driver.quit()
+            return None
 
         extracted_data = []
         for i, link in enumerate(links):
@@ -202,7 +215,9 @@ if __name__ == "__main__":
     main_url = f"https://www.metrocuadrado.com/apartaestudio-apartamento/venta/{city}/"
     df = get_property_links_selenium(main_url, limit=None, timeout=120)  # Limit for testing
 
-    if df is not None:
+    if df is not None and df.empty:
+        logging.info("No properties for this search; nothing to save.")
+    elif df is not None:
         # Create filename with date
         extraction_date_str = datetime.now().strftime("%Y-%m-%d")
         filename = f"data/Apartments/listings_data_m2_{city}_{extraction_date_str}.csv"  # Filename with date

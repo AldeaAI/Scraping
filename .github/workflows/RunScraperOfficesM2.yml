@@ -75,7 +75,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A 
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_la-estrella:
@@ -121,7 +121,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_caldas:
@@ -167,7 +167,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_sabaneta:
@@ -213,7 +213,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_envigado:
@@ -259,7 +259,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_itagui:
@@ -305,7 +305,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_bello:
@@ -351,7 +351,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_copacabana:
@@ -397,7 +397,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_girardota:
@@ -443,7 +443,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices'
           git push
 
   ScrapeOffices_m2_barbosa:
@@ -489,7 +489,7 @@ jobs:
           git config --global user.name "AldeaAI"
           git pull
           git add -A
-          git commit -m 'Created csv file for the Offices m2'
+          git diff --cached --quiet || git commit -m 'Created csv file for the Offices m2'
           git push
 
        

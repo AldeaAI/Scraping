@@ -41,7 +41,7 @@ jobs:
         git add data/combined_listings.csv data/processed_files.txt data/combined_listings_deduplicated.csv
         # Check if there are changes to commit
         if ! git diff --cached --quiet; then
-          git commit -m "Weekly update: combine and deduplicate CSV files [skip ci]"
+          git diff --cached --quiet || git commit -m "Weekly update: combine and deduplicate CSV files [skip ci]"
           git push
         else
           echo "No changes to commit."
