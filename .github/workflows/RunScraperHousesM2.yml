@@ -34,7 +34,7 @@ on:
 jobs:
   ScrapeHouses_m2_bogota:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_bogota') || (github.event_name == 'schedule' && github.event.schedule == '7 11 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -71,7 +71,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A 
@@ -80,7 +80,7 @@ jobs:
 
   ScrapeHouses_m2_medellin:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_medellin') || (github.event_name == 'schedule' && github.event.schedule == '27 11 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -117,7 +117,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A 
@@ -126,7 +126,7 @@ jobs:
 
   ScrapeHouses_m2_la-estrella:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_la-estrella') || (github.event_name == 'schedule' && github.event.schedule == '47 11 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -163,7 +163,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -172,7 +172,7 @@ jobs:
 
   ScrapeHouses_m2_caldas:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_caldas') || (github.event_name == 'schedule' && github.event.schedule == '7 12 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -209,7 +209,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -218,7 +218,7 @@ jobs:
 
   ScrapeHouses_m2_sabaneta:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_sabaneta') || (github.event_name == 'schedule' && github.event.schedule == '27 12 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -255,7 +255,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -264,7 +264,7 @@ jobs:
 
   ScrapeHouses_m2_envigado:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_envigado') || (github.event_name == 'schedule' && github.event.schedule == '47 12 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -301,7 +301,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -310,7 +310,7 @@ jobs:
 
   ScrapeHouses_m2_itagui:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_itagui') || (github.event_name == 'schedule' && github.event.schedule == '7 13 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -347,7 +347,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -356,7 +356,7 @@ jobs:
 
   ScrapeHouses_m2_bello:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_bello') || (github.event_name == 'schedule' && github.event.schedule == '27 13 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -393,7 +393,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -402,7 +402,7 @@ jobs:
 
   ScrapeHouses_m2_copacabana:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_copacabana') || (github.event_name == 'schedule' && github.event.schedule == '47 13 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -439,7 +439,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -448,7 +448,7 @@ jobs:
 
   ScrapeHouses_m2_girardota:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_girardota') || (github.event_name == 'schedule' && github.event.schedule == '7 14 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -485,7 +485,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A
@@ -494,7 +494,7 @@ jobs:
 
   ScrapeHouses_m2_barbosa:
     if: (github.event_name == 'workflow_dispatch' && github.event.inputs.job_to_run == 'ScrapeHouses_m2_barbosa') || (github.event_name == 'schedule' && github.event.schedule == '27 14 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -531,7 +531,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git pull
           git add -A

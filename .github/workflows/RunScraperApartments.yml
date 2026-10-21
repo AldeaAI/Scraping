@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   ScrapeApartments:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v7 # checkout the repository content
@@ -36,7 +36,7 @@ jobs:
       - name: update csv file
         run: |
           pwd
-          git config --global user.email "AldeaAI@protonmail.comm"
+          git config --global user.email "AldeaAI@protonmail.com"
           git config --global user.name "AldeaAI"
           git add -A 
           git diff --cached --quiet || git commit -m 'Created csv file for the apartments'

@@ -151,15 +151,11 @@ def get_property_links_selenium(url_main, timeout=10, limit=None):
         no_results_xpath = "//*[contains(., 'No tenemos inmuebles')]"
         wait.until(lambda d: d.find_elements(By.CLASS_NAME, "property-card__content") or d.find_elements(By.XPATH, no_results_xpath))
 
-        # Collect property links. Cards also hold ads (e.g. alarm systems), so keep only real "/inmueble/" links
-        links = []
-        for card_header in driver.find_elements(By.CLASS_NAME, "property-card__content"):
-            a_tags = card_header.find_elements(By.TAG_NAME, "a")
-            for a_tag in a_tags:
-                href = a_tag.get_attribute("href")
-                # Exclude links containing "proyecto" (project/new development properties)
-                if href and "/inmueble/" in href.lower() and "proyecto" not in href.lower():
-                    links.append(href)
+        # Read all card links in one JavaScript call: element references go stale when the page re-renders
+        hrefs = driver.execute_script("return Array.from(document.querySelectorAll('.property-card__content a')).map(a => a.href);")
+        # Cards also hold ads (e.g. alarm systems), so keep only real "/inmueble/" links
+        # Exclude links containing "proyecto" (project/new development properties)
+        links = [href for href in hrefs if href and "/inmueble/" in href.lower() and "proyecto" not in href.lower()]
 
         if not links:
             if driver.find_elements(By.XPATH, no_results_xpath):
