@@ -12,6 +12,7 @@ from selenium.common.exceptions import TimeoutException
 from bs4 import BeautifulSoup
 from datetime import datetime
 import json
+import re
 import time
 import logging
 import pandas as pd
@@ -20,6 +21,32 @@ import random
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def parse_broken_json(json_string):
+    """Extracts the fields used by the scraper from JSON that the site wrote invalidly.
+
+    The site sometimes puts unescaped quotes inside a value, which makes the whole block unparseable.
+    Each field is read on its own with a regular expression instead.
+
+    Args:
+        json_string: The JSON text that failed to parse.
+
+    Returns:
+        dict: Data shaped like the parsed JSON, or None if no property id was found.
+    """
+    def field(key):
+        pattern = r'"' + key + r'":\s*("(?:[^"\\]|\\.)*"|-?\d+(?:\.\d+)?|null|true|false|\{[^{}]*\})'
+        match = re.search(pattern, json_string)
+        return json.loads(match.group(1)) if match else None
+
+    keys = ['propertyId', 'propertyType', 'salePrice', 'area', 'areac', 'rooms', 'bathrooms', 'garages', 'city', 'zone',
+            'neighborhood', 'commonNeighborhood', 'companyName', 'propertyState', 'link', 'builtTime', 'stratum']
+    data = {key: field(key) for key in keys}
+    if data['propertyId'] is None:
+        return None
+    data['coordinates'] = None  # Nested object, not read by the fallback
+    data['detail'] = {'adminPrice': field('adminPrice')}
+    return {'data': data}
 
 def extract_json_data(driver, url, timeout=10):
     """Extracts JSON data from a <script type="application/json"> tag.
@@ -57,7 +84,15 @@ def extract_json_data(driver, url, timeout=10):
                                 break
                     json_string = script_tag.string[start_index:end_index]
                     json_string = json_string.replace("\\", "")
-                    json_data = json.loads(json_string)
+                    try:
+                        json_data = json.loads(json_string)
+                    except json.JSONDecodeError:
+                        # The site wrote invalid JSON for this property: read the fields one by one instead
+                        json_data = parse_broken_json(json_string)
+                        if json_data is None:
+                            logging.error(f"Invalid JSON on {url} and no property id found")
+                            return None
+                        logging.warning(f"Invalid JSON on {url}; used fallback field extraction")
                     return json_data
                 # except json.JSONDecodeError as e:
                 #     logging.error(f"JSON Decode Error on {url}: {e}")

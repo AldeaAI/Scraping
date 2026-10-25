@@ -3,6 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+import sys
 import time
 import re
 import pandas as pd
@@ -193,6 +194,10 @@ if __name__ == "__main__":
             all_listings.extend(listings_from_page)
             time.sleep(1)
 
+        if not all_listings:
+            print("No listings found on any page: the site layout may have changed.")
+            sys.exit(1)
+
         all_listings_data = []
 
         for listing_info in all_listings:
@@ -213,12 +218,14 @@ if __name__ == "__main__":
             df.to_csv(filename, index=False, encoding="utf-8")  # Saves the dataframe to a csv file
             print(f"Data saved to {filename}") #Prints the filename
         else:
-            print("No listings with all the required data and a valid price were found.")
+            print("No listings with all the required data and a valid price were found: the site layout may have changed.")
+            sys.exit(1)
 
     elif total_pages == 0:
         print("There are no pages")
     else:
-        print("Could not determine the total number of pages.")
+        print("Could not determine the total number of pages: the site layout may have changed.")
+        sys.exit(1)
 
 
 
